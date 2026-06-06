@@ -112,7 +112,3 @@ regime-monte-carlo/
 - **Option pricing extension** — price European options via Monte Carlo and compare against Black–Scholes closed form as an engine validation
 
 ---
-
-## License
-
-MIT
