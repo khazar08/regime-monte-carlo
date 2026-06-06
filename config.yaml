@@ -1,0 +1,29 @@
+data:
+  tickers: ["SPY", "AAPL", "TSLA"]
+  start: "2015-01-01"
+  end: "2024-12-31"
+  source: "yfinance"
+  cache_dir: "data/raw"
+
+simulation:
+  horizon_days: 252
+  n_paths: 50000
+  dt: 1.0
+  seed: 42
+
+regime:
+  n_states: 3
+  n_iter: 200
+  init_state: "stationary"
+
+backtest:
+  trailing_window: 504
+  horizon_days: 21
+  anchor_step: 21
+  nominal_levels: [0.50, 0.80, 0.95]
+
+risk:
+  var_alpha: 0.95
+  drawdown_threshold: 0.20
+
+output_dir: "outputs"
