@@ -101,6 +101,18 @@ regime-monte-carlo/
 
 ---
 
+## Roadmap / Ideas
+
+- **Student-t emissions** — replace per-state Gaussians with Student-t distributions to better capture fat tails and reduce overcovering at high confidence levels
+- **Time-varying transition matrix** — allow the Markov transition probabilities to depend on macro features (VIX, yield curve slope) rather than staying fixed
+- **Multi-asset simulation** — extend to correlated asset paths using a regime-dependent covariance matrix, enabling portfolio-level VaR
+- **Jump-diffusion layer** — add a Poisson jump process on top of the GBM baseline to model sudden crashes separately from vol regimes
+- **Streamlit dashboard** — interactive UI to pick ticker, horizon, and model and render live fan charts and risk metrics in the browser
+- **Bayesian HMM** — replace EM with MCMC or variational inference to get uncertainty estimates on the transition matrix itself
+- **Option pricing extension** — price European options via Monte Carlo and compare against Black–Scholes closed form as an engine validation
+
+---
+
 ## License
 
 MIT
