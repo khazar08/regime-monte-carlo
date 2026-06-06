@@ -1,7 +1,5 @@
 # Regime-Switching Monte Carlo Engine
 
-> Scenario simulation and risk quantification for equities — not price prediction.
-
 A Python framework that simulates the distribution of future equity price paths using Monte Carlo methods, where drift and volatility are governed by a Markov regime-switching process calibrated via a Hidden Markov Model (HMM).
 
 ---
