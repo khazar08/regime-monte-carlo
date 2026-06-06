@@ -10,11 +10,11 @@ Walk-forward backtest on SPY (2015–2024). At each anchor date the model is cal
 
 | Nominal Level | GBM Coverage | Regime Coverage |
 |:---:|:---:|:---:|
-| 50% | 54.2% | 51.8% |
-| 80% | 73.6% | 78.9% |
-| 95% | 87.3% | 92.1% |
+| 50% | 60.0% | 61.4% |
+| 80% | 89.5% | 89.8% |
+| 95% | 94.7% | 98.9% |
 
-GBM systematically undercovering at 80% and 95% reflects its inability to adapt to volatility regimes — it fits a single volatility estimate to a period that includes both calm and crisis. The regime model's 95% coverage (92.1% vs nominal 95%) is meaningfully closer, driven by the bear state capturing elevated vol during 2018, 2020, and 2022.
+Both models overcover at 50% — their central intervals are wider than necessary, reflecting the high day-to-day variance in SPY returns over a decade that includes 2018, 2020, and 2022. At 80% both sit close to nominal. The divergence appears at 95%: GBM lands at 94.7%, essentially calibrated, while the regime model overcovering at 98.9% — the bear state inflates tail vol estimates, producing intervals that are conservatively wide. Neither model is strictly better; GBM is sharper at the 95% level while the regime decomposition gives more interpretable dynamics.
 
 ---
 
