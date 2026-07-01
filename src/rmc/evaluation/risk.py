@@ -1,7 +1,4 @@
-"""Risk metrics derived from simulated price paths."""
-
 from __future__ import annotations
-
 import numpy as np
 
 
@@ -39,7 +36,7 @@ def prob_drawdown_exceeds(paths: np.ndarray, threshold: float) -> float:
 
 
 def risk_report(paths: np.ndarray, alpha: float, dd_threshold: float) -> dict[str, float]:
-    """Generate a summary risk report.
+
 
     returns = terminal_returns(paths)
     var = value_at_risk(returns, alpha)
