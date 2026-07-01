@@ -1,10 +1,6 @@
-"""Walk-forward calibration backtest and coverage analysis."""
-
 from __future__ import annotations
-
 import logging
 from typing import Any
-
 import numpy as np
 import pandas as pd
 
@@ -15,20 +11,6 @@ def predicted_intervals(
     terminal_prices: np.ndarray,
     nominal_levels: list[float],
 ) -> dict[float, tuple[float, float]]:
-    """Compute central prediction intervals from simulated terminal prices.
-
-    Parameters
-    ----------
-    terminal_prices : np.ndarray
-        1-D array of simulated terminal prices.
-    nominal_levels : list[float]
-        Nominal coverage levels, e.g. [0.50, 0.80, 0.95].
-
-    Returns
-    -------
-    dict[float, tuple[float, float]]
-        Mapping from nominal level to (lo, hi) quantile pair.
-    """
     intervals: dict[float, tuple[float, float]] = {}
     for level in nominal_levels:
         tail = (1.0 - level) / 2.0
@@ -43,26 +25,8 @@ def walk_forward_coverage(
     model_kind: str,
     config: Any,
 ) -> pd.DataFrame:
-    """Walk-forward calibration backtest.
 
-    At each anchor date, calibrate on trailing window, simulate forward,
-    and record whether the realized price falls within each predicted interval.
-
-    Parameters
-    ----------
-    prices : pd.Series
-        Daily close prices with DatetimeIndex.
-    model_kind : str
-        'gbm' or 'regime'.
-    config : Config
-        Project configuration.
-
-    Returns
-    -------
-    pd.DataFrame
-        Tidy DataFrame with columns: anchor_date, nominal_level,
-        covered (bool), realized, lo, hi.
-    """
+    
     from rmc.models.gbm import fit_gbm, simulate_gbm
     from rmc.models.regime import fit_regime
     from rmc.models.simulate import simulate_regime
@@ -128,18 +92,6 @@ def walk_forward_coverage(
 
 
 def coverage_summary(coverage_df: pd.DataFrame) -> pd.DataFrame:
-    """Aggregate empirical coverage per nominal level.
-
-    Parameters
-    ----------
-    coverage_df : pd.DataFrame
-        Output from walk_forward_coverage.
-
-    Returns
-    -------
-    pd.DataFrame
-        Columns: nominal_level, empirical_coverage, n_anchors, ideal.
-    """
     grouped = (
         coverage_df.groupby("nominal_level")["covered"]
         .agg(empirical_coverage="mean", n_anchors="count")
