@@ -1,9 +1,5 @@
-"""Hidden Markov Model regime detection and parameter extraction."""
-
 from __future__ import annotations
-
 from dataclasses import dataclass
-
 import numpy as np
 from hmmlearn.hmm import GaussianHMM
 
@@ -25,24 +21,7 @@ def fit_regime(
     n_iter: int,
     rng: np.random.Generator,
 ) -> tuple[RegimeParams, GaussianHMM]:
-    """Fit a GaussianHMM to log returns, sorting states by mean.
-
-    Parameters
-    ----------
-    log_returns : np.ndarray
-        1-D array of daily log returns.
-    n_states : int
-        Number of hidden states.
-    n_iter : int
-        Maximum EM iterations.
-    rng : np.random.Generator
-        Used to derive an integer seed for GaussianHMM.
-
-    Returns
-    -------
-    tuple[RegimeParams, GaussianHMM]
-        Sorted regime parameters and the fitted model.
-    """
+    
     seed = int(rng.integers(0, 2**31))
     model = GaussianHMM(
         n_components=n_states,
@@ -82,7 +61,6 @@ def fit_regime(
 
 
 def _make_labels(n_states: int) -> list[str]:
-    """Generate state labels from bear -> bull based on count."""
     presets = {2: ["bear", "bull"], 3: ["bear", "neutral", "bull"]}
     if n_states in presets:
         return presets[n_states]
@@ -90,22 +68,10 @@ def _make_labels(n_states: int) -> list[str]:
 
 
 def stationary_distribution(transmat: np.ndarray) -> np.ndarray:
-    """Compute the stationary distribution of a transition matrix.
-
-    Parameters
-    ----------
-    transmat : np.ndarray
-        (K, K) row-stochastic transition matrix.
-
-    Returns
-    -------
-    np.ndarray
-        (K,) stationary probability vector satisfying pi @ A == pi.
-    """
+    
     K = transmat.shape[0]
     # Left eigenvector for eigenvalue 1: solve (A^T - I) pi = 0
     A = transmat.T - np.eye(K)
-    # Replace last equation with normalization constraint
     A[-1] = 1.0
     b = np.zeros(K)
     b[-1] = 1.0
@@ -116,20 +82,6 @@ def stationary_distribution(transmat: np.ndarray) -> np.ndarray:
 
 
 def decode_states(model: GaussianHMM, log_returns: np.ndarray) -> np.ndarray:
-    """Viterbi decode the most-likely state sequence.
-
-    Parameters
-    ----------
-    model : GaussianHMM
-        Fitted HMM.
-    log_returns : np.ndarray
-        1-D array of daily log returns.
-
-    Returns
-    -------
-    np.ndarray
-        Integer state indices, shape (T,).
-    """
     obs = log_returns.reshape(-1, 1)
     _, states = model.decode(obs, algorithm="viterbi")
     return states
