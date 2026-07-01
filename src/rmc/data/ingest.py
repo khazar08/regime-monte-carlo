@@ -1,5 +1,3 @@
-"""Data ingestion: download, cache, and compute log returns."""
-
 from __future__ import annotations
 
 import logging
@@ -18,26 +16,7 @@ def download_prices(
     source: str = "yfinance",
     cache_dir: str | None = None,
 ) -> pd.DataFrame:
-    """Return adjusted close prices, columns=tickers, DatetimeIndex. Cache to parquet.
 
-    Parameters
-    ----------
-    tickers : list[str]
-        Ticker symbols to download.
-    start : str
-        Start date in YYYY-MM-DD format.
-    end : str
-        End date in YYYY-MM-DD format.
-    source : str
-        Data source: 'yfinance' or 'csv'.
-    cache_dir : str | None
-        Directory to cache downloaded data.
-
-    Returns
-    -------
-    pd.DataFrame
-        Adjusted close prices indexed by date.
-    """
     if cache_dir is not None:
         cache_path = Path(cache_dir) / f"{'_'.join(sorted(tickers))}_{start}_{end}.parquet"
         if cache_path.exists():
@@ -97,35 +76,11 @@ def _download_yfinance(tickers: list[str], start: str, end: str) -> pd.DataFrame
 
 
 def compute_log_returns(prices: pd.DataFrame) -> pd.DataFrame:
-    """Compute daily log returns and drop the first NaN row.
-
-    Parameters
-    ----------
-    prices : pd.DataFrame
-        Price DataFrame with DatetimeIndex.
-
-    Returns
-    -------
-    pd.DataFrame
-        Daily log returns, same columns, first row dropped.
-    """
     log_ret = np.log(prices / prices.shift(1)).dropna()
     return log_ret
 
 
 def load_or_download(config: object) -> tuple[pd.DataFrame, pd.DataFrame]:
-    """Convenience wrapper: return (prices, log_returns) using config, using cache if present.
-
-    Parameters
-    ----------
-    config : Config
-        Project configuration object.
-
-    Returns
-    -------
-    tuple[pd.DataFrame, pd.DataFrame]
-        (prices, log_returns)
-    """
     prices = download_prices(
         tickers=config.data.tickers,
         start=config.data.start,
