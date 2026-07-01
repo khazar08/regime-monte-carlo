@@ -21,23 +21,8 @@ def plot_fan_chart(
     percentiles: Sequence[float] = (5, 25, 50, 75, 95),
     ax: Axes | None = None,
 ) -> Axes:
-    """Plot a fan chart of simulated price paths.
 
-    Parameters
-    ----------
-    paths : np.ndarray
-        Shape (n_paths, horizon+1).
-    dates : pd.DatetimeIndex | None
-        Optional x-axis dates.
-    percentiles : Sequence[float]
-        Percentiles to shade.
-    ax : Axes | None
-        Axes to draw on; creates one if None.
-
-    Returns
-    -------
-    Axes
-    """
+    
     if ax is None:
         _, ax = plt.subplots(figsize=(10, 6))
 
@@ -78,22 +63,7 @@ def plot_regimes(
     state_labels: list[str],
     ax: Axes | None = None,
 ) -> Axes:
-    """Shade price history by detected regime.
-
-    Parameters
-    ----------
-    prices : pd.Series
-        Price series with DatetimeIndex.
-    states : np.ndarray
-        Integer state array, length == len(prices) - 1 (aligned to returns).
-    state_labels : list[str]
-        Label per state index.
-    ax : Axes | None
-
-    Returns
-    -------
-    Axes
-    """
+    
     if ax is None:
         _, ax = plt.subplots(figsize=(12, 5))
 
@@ -147,19 +117,8 @@ def plot_calibration(
     coverage_summary_df: pd.DataFrame,
     ax: Axes | None = None,
 ) -> Axes:
-    """Plot empirical vs nominal coverage with 45-degree ideal line.
 
-    Parameters
-    ----------
-    coverage_summary_df : pd.DataFrame
-        Output from coverage_summary(); must have columns:
-        nominal_level, empirical_coverage, and optionally 'model'.
-    ax : Axes | None
-
-    Returns
-    -------
-    Axes
-    """
+    
     if ax is None:
         _, ax = plt.subplots(figsize=(6, 6))
 
@@ -231,20 +190,7 @@ def plot_model_comparison(
     regime_summary: pd.DataFrame,
     ax: Axes | None = None,
 ) -> Axes:
-    """Side-by-side calibration comparison between GBM and regime model.
-
-    Parameters
-    ----------
-    gbm_summary : pd.DataFrame
-        Output from coverage_summary() for GBM.
-    regime_summary : pd.DataFrame
-        Output from coverage_summary() for regime model.
-    ax : Axes | None
-
-    Returns
-    -------
-    Axes
-    """
+    
     if ax is None:
         _, ax = plt.subplots(figsize=(6, 6))
 
@@ -256,15 +202,6 @@ def plot_model_comparison(
 
 
 def save_figure(fig: Figure, path: str | Path) -> None:
-    """Save a figure to disk, creating parent directories as needed.
-
-    Parameters
-    ----------
-    fig : Figure
-        Matplotlib figure to save.
-    path : str | Path
-        Output file path.
-    """
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(path, dpi=150, bbox_inches="tight")
