@@ -1,8 +1,5 @@
-"""Tests for data ingestion and log return computation."""
-
 import numpy as np
 import pandas as pd
-
 from rmc.data.ingest import compute_log_returns
 
 
