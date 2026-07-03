@@ -1,7 +1,4 @@
-"""Tests for the regime HMM model."""
-
 import numpy as np
-
 from rmc.models.regime import fit_regime, stationary_distribution
 
 
