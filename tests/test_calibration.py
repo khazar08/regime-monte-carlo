@@ -1,8 +1,5 @@
-"""Tests for calibration backtest."""
-
 import numpy as np
 import pandas as pd
-
 from rmc.evaluation.calibration import coverage_summary, predicted_intervals
 
 
