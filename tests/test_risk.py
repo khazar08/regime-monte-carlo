@@ -1,7 +1,4 @@
-"""Tests for risk metrics."""
-
 import numpy as np
-
 from rmc.evaluation.risk import (
     conditional_var,
     max_drawdown,
