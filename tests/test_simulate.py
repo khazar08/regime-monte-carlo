@@ -1,9 +1,5 @@
-"""Tests for the regime-switching simulation."""
-
 import time
-
 import numpy as np
-
 from rmc.models.regime import RegimeParams
 from rmc.models.simulate import simulate_regime
 
