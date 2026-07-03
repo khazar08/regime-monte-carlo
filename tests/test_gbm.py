@@ -1,9 +1,5 @@
-"""Tests for the GBM model."""
-
 import numpy as np
-
 from rmc.models.gbm import GBMParams, fit_gbm, simulate_gbm
-
 
 def test_fit_gbm_recovers_params():
     rng = np.random.default_rng(42)
