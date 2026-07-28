@@ -1,10 +1,6 @@
-"""Publication-quality plot helpers. All functions return Axes; never call plt.show()."""
-
 from __future__ import annotations
-
 from pathlib import Path
 from typing import Sequence
-
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
 import numpy as np
