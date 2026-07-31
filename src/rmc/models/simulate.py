@@ -1,9 +1,5 @@
-"""Vectorized regime-switching Monte Carlo simulation."""
-
 from __future__ import annotations
-
 import numpy as np
-
 from rmc.models.regime import RegimeParams, stationary_distribution
 
 
