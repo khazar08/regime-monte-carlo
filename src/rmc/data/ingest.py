@@ -1,8 +1,6 @@
 from __future__ import annotations
-
 import logging
 from pathlib import Path
-
 import numpy as np
 import pandas as pd
 
@@ -33,7 +31,6 @@ def download_prices(
     if prices.empty:
         raise ValueError(f"No price data returned for tickers={tickers}, start={start}, end={end}")
 
-    # Forward-fill small gaps (up to 5 days)
     prices = prices.ffill(limit=5)
 
     if cache_dir is not None:
