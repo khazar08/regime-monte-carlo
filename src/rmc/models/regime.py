@@ -35,14 +35,12 @@ def fit_regime(
     raw_means = model.means_[:, 0]          # (K,)
     raw_sigmas = np.sqrt(model.covars_[:, 0, 0])  # (K,)
 
-    # Sort states by mean return: bear < neutral < ... < bull
     order = np.argsort(raw_means)
     sorted_means = raw_means[order]
     sorted_sigmas = raw_sigmas[order]
     sorted_startprob = model.startprob_[order]
     sorted_transmat = model.transmat_[np.ix_(order, order)]
 
-    # Re-label model internals to match sorted order
     model.means_ = sorted_means.reshape(-1, 1)
     model.covars_ = sorted_sigmas.reshape(-1, 1, 1) ** 2
     model.startprob_ = sorted_startprob
