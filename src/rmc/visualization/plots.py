@@ -152,22 +152,7 @@ def plot_terminal_distribution(
     cvar: float,
     ax: Axes | None = None,
 ) -> Axes:
-    """Histogram of terminal returns with VaR and CVaR markers.
-
-    Parameters
-    ----------
-    returns : np.ndarray
-        1-D terminal return array.
-    var : float
-        Value at Risk (positive = loss).
-    cvar : float
-        Conditional VaR (positive = expected loss).
-    ax : Axes | None
-
-    Returns
-    -------
-    Axes
-    """
+    
     if ax is None:
         _, ax = plt.subplots(figsize=(8, 5))
 
