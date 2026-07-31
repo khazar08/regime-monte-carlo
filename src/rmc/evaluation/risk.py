@@ -12,8 +12,6 @@ def value_at_risk(returns: np.ndarray, alpha: float) -> float:
 
 def conditional_var(returns: np.ndarray, alpha: float) -> float:
 
-
-
     threshold = np.quantile(returns, 1.0 - alpha)
     tail = returns[returns <= threshold]
     if len(tail) == 0:
@@ -23,7 +21,6 @@ def conditional_var(returns: np.ndarray, alpha: float) -> float:
 
 def max_drawdown(paths: np.ndarray) -> np.ndarray:
     
-    # Running maximum along time axis
     running_max = np.maximum.accumulate(paths, axis=1)
     drawdowns = (running_max - paths) / running_max
     return drawdowns.max(axis=1)
