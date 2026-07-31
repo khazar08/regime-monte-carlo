@@ -35,11 +35,9 @@ def simulate_gbm(
     mu = params.mu_daily
     sigma = params.sigma_daily
 
-    # Daily log-return increments: (mu - 0.5*sigma^2)*dt + sigma*sqrt(dt)*Z
     Z = rng.standard_normal((n_paths, horizon))
     log_increments = (mu - 0.5 * sigma**2) * dt + sigma * np.sqrt(dt) * Z
 
-    # Cumulative sum → cumulative log return
     cum_log_returns = np.concatenate(
         [np.zeros((n_paths, 1)), np.cumsum(log_increments, axis=1)],
         axis=1,
