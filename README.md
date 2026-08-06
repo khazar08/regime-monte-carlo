@@ -8,7 +8,7 @@ A Python framework that simulates the distribution of future equity price paths 
 
 Walk-forward backtest on SPY (2015–2024). At each anchor date the model is calibrated on a trailing 504-day window, simulates 21 trading days forward across 50,000 paths, and we check whether the realized price falls inside the predicted central interval. A well-calibrated model should hit the nominal rate.
 
-| Nominal Level | GBM Coverage | Regime Coverage |
+| Nominal Level | GBM Coverage | Regime Coverage | 
 |:---:|:---:|:---:|
 | 50% | 60.0% | 61.4% |
 | 80% | 89.5% | 89.8% |
